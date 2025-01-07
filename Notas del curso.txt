@@ -1,0 +1,53 @@
+Full stack Open NOTAS
+
+npm create vite@latest courseinfo -- --template react
+
+cd part1
+npm install
+
+npm run dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,48 +1,62 @@
-const Header = (course)=>{
+const Header = (courses)=>{
+  console.log("Header :", courses)
   return (
   <div>    
-  <h1>{course.name}</h1>
+  <h1>{courses.course.name}</h1>
   </div>
   )
 }
 
 const Part = (parts)=>{
+  console.log("Part :" , parts)
   return (
     <p>
       {parts.part} {parts.exercises}
     </p>
   )
 }
-const Content = (parts)=>{
-  console.log(parts)
+const Content = (courses)=>{
+  console.log("Content :" ,courses)
   return (
-    <>
-      <Part part={parts.partes[0].part} exercises={parts.partes[0].exercises}/>    
-      <Part part={parts.partes[1].part} exercises={parts.partes[1].exercises} />    
-      <Part part={parts.partes[2].part} exercises={parts.partes[2].exercises} />    
-    </>
-  )
+   <>
+      <Part part={courses.partes.parts[0].name} exercises={courses.partes.parts[0].exercises}/>    
+      <Part part={courses.partes.parts[1].name} exercises={courses.partes.parts[1].exercises} />    
+      <Part part={courses.partes.parts[2].name} exercises={courses.partes.parts[2].exercises} />    
+    </> 
+)
 }
-const Total = (exercises)=>{
+const Total = (exers)=>{
+  console.log("Total :" , exers)
   return (  
-    <p>Number of exercises {exercises.exercises1 + exercises.exercises2 + exercises.exercises3}</p>
+    <p>Number of exercises {exers.partes.parts[0].exercises + exers.partes.parts[1].exercises + exers.partes.parts[2].exercises}</p>
   )
 }
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const courses = [
-    { part: 'Fundamentals of React', exercises: 10 },
-    { part: 'Using props to pass data', exercises: 7 },
-    { part: 'State of a component', exercises: 14 },
 
-  ]
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  }
 
   return (
     <div>
-      <Header name={course} />
-      <Content partes={courses}  />
-      <Total exercises1={courses[0].exercises} exercises2={courses[1].exercises} exercises3={courses[2].exercises} />      
+      <Header course={course} />
+      <Content partes={course} />
+      <Total partes={course} />      
     </div>
   )
 }
