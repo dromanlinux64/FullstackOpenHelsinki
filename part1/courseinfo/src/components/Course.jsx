@@ -1,21 +1,21 @@
-const Header = (props)=>{
+const Header = (propes)=>{
     //console.log("Header :", props);
-    const  {name} = props;
+    const  {name} = propes;
     return ( <h2>{name}</h2> )
   }
   
-  const Part = (props)=>{
+  const Part = (propes)=>{
     //console.log("Part :" , props);
-    const {part, exercises} = props;
+    const {part, exercises} = propes;
     return (
       <p>
         {part} {exercises}
       </p>
     )
   }
-  const Content = (props)=>{
+  const Content = (propess)=>{
     //console.log("Content :" ,props);
-    const {partes}=props;
+    const {partes}=propess;
     //console.log("Content partes:" ,partes);
     return (
      <>
@@ -26,9 +26,9 @@ const Header = (props)=>{
      </> 
   )
   }
-  const Total = (props)=>{
+  const Total = (propes)=>{
     //console.log("Total :" , props)
-    const {partes}=props;
+    const {partes}=propes;
     const total = partes.reduce((acc,parte)=>acc+parte.exercises,0)
     /*let total = 0;
     for (let i=0; i< partes.length;i++){
@@ -41,9 +41,9 @@ const Header = (props)=>{
     )
   }
   
-  const Course=(props)=>{
+  const Course=(propes)=>{
     //console.log("Course", props);
-    const {name,parts}=props.course;
+    const {name,parts}=propes.course;
     //console.log("Course name", name);
     //console.log("Course parts", parts);
     
