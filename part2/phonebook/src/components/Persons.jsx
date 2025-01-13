@@ -1,8 +1,11 @@
 const Persons=(propes) =>
-{    const {personsToShow}=propes
+{    const {personsToShow,handleDeletePer}=propes
 return(
     <>
-    {personsToShow.map(person=><p key={person.name}>{person.name} {person.number}</p>)}
+    {personsToShow.map(person=><div key={person.name}>{person.name} {person.number} <button onClick={
+        ()=>handleDeletePer(person)}>
+        delete</button>
+    </div>)}
     </>
 )}
 
