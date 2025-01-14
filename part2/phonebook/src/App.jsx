@@ -4,13 +4,47 @@ import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import personService  from './services/persons'
 
-const {getAll,create,deletePer, update} = personService ;
+const {getAll,create,deletePer,update} = personService ;
+
+const Notification = (propes) => {
+  const {message, isSuccess}=propes.message
+ 
+  const successStyle = {
+    color: 'green',
+    fontStyle: 'italic',
+    fontSize: 15,
+    borderStyle: 'solid',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10
+  
+  };
+  const errorStyle = {
+    color: 'red',
+    fontSize: 20,
+    borderStyle: 'solid',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10
+  
+  };
+  const notificationStyle = isSuccess? successStyle: errorStyle;
+  if (message === "") {
+    return null
+  }
+  return (
+    <div style={notificationStyle} >
+      {message}
+    </div>
+  )
+}
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filtro, setFiltro] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState({message:"", isSuccess:false})
 
   useEffect(() => {
     //console.log('effect')
@@ -41,7 +75,12 @@ const App = () => {
           newPersons[indicePer].number = returnedPerson.number;
           setPersons(newPersons);
           setNewName("");
-          setNewNumber("");  
+          setNewNumber(""); 
+          const newMessage={message:`Updated ${returnedPerson.name}`,isSuccess:true}
+          setNotificationMessage(newMessage)
+          setTimeout(() => {
+            setNotificationMessage({message:"", isSuccess:false})
+          }, 5000)
         });   
         }
     }
@@ -55,7 +94,13 @@ const App = () => {
         //console.log(returnedPerson)
         setPersons(persons.concat(returnedPerson));
         setNewName("");
-        setNewNumber("");      })
+        setNewNumber("");      
+        const newMessage={message:`Added ${returnedPerson.name}`,isSuccess:true}
+        setNotificationMessage(newMessage)
+        setTimeout(() => {
+          setNotificationMessage({message:"", isSuccess:false})
+        }, 5000)
+  })
       .catch(err => {
           console.log(`Error adding ${personObject}`, err )
         })
@@ -89,17 +134,28 @@ const App = () => {
     .then((deletedPer)  => {
       //console.log(`borrado ${deletedPer.name}`)
       setPersons(persons.filter(n => n.id !== person.id))    
+      const newMessage={message:`Deleted ${deletedPer.name}`,isSuccess:true}
+      setNotificationMessage(newMessage)
+      setTimeout(() => {
+        setNotificationMessage({message:"", isSuccess:false})
+      }, 5000)
     })
-    .catch(err =>{
-      console.log(`Error deleting...`,err)
-    })
-  }
+    .catch(() => {
+      const newMessage={message:`Information of ${person.name} has already been removed from server`,isSuccess:false }
+      setNotificationMessage(newMessage)
+      setTimeout(() => {
+        setNotificationMessage({message:"", isSuccess:false})
+      }, 5000)
+    setPersons(persons.filter(n => n.id !== person.id))
+  })      
+}
 
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notificationMessage} />
       <Filter filtro={filtro} handleFiltroChange={handleFiltroChange} />
       <h3>add a new</h3>
       <PersonForm
